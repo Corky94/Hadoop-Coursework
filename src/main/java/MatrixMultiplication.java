@@ -31,12 +31,16 @@ public class MatrixMultiplication {
             ) throws IOException, InterruptedException {
                 String[] itr = value.toString().split("\n");
                 String[] vectorSplit = vector.toString().split("\n");
+
                 for (String val : itr) {
                     System.out.println(val);
-                    for(String s : val.split(",")){
-                        System.out.println(s);
-                    }
-                    IntWritable v = new IntWritable(1);
+                    String [] splitLine = val.split(",");
+                    word.set(splitLine[0]);
+                    int i = Integer.parseInt(splitLine[2]);
+                    String s = vectorSplit[Integer.parseInt(splitLine[1]) - 1];
+                    String nm = s.split(",")[2];
+                    int value1 = i * Integer.parseInt(nm);
+                    IntWritable v = new IntWritable(value1);
                     context.write(word,v);
                 }
 
@@ -74,7 +78,6 @@ public class MatrixMultiplication {
             String line = fileReader.readLine();
             while(line!= null){
                 builder.append(line);
-                builder.append("\n");
                 line = fileReader.readLine();
             }
             TokenizerMapper.setVector(builder.toString());
