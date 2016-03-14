@@ -49,28 +49,14 @@ public class WordCountTwo {
                 context.write(key, result);
             }
         }
-    public static class IntSumCombiner
-            extends Reducer<Text,IntWritable,Text,IntWritable> {
-        private IntWritable result = new IntWritable();
 
-        public void reduce(Text key, Iterable<IntWritable> values,
-                           Context context
-        ) throws IOException, InterruptedException {
-            int sum = 0;
-            for (IntWritable val : values) {
-                sum += val.get();
-            }
-            result.set(sum);
-            context.write(key, result);
-        }
-    }
 
         public static void main(String[] args) throws Exception {
             Configuration conf = new Configuration();
             Job job = Job.getInstance(conf, "word count");
             job.setJarByClass(WordCountTwo.class);
             job.setMapperClass(TokenizerMapper.class);
-            job.setCombinerClass(IntSumCombiner.class);
+            job.setCombinerClass(IntSumReducer.class);
             job.setReducerClass(IntSumReducer.class);
             job.setOutputKeyClass(Text.class);
             job.setOutputValueClass(IntWritable.class);
