@@ -32,7 +32,10 @@ public class MatrixMultiplication {
                 String[] itr = value.toString().split("\n");
                 String[] vectorSplit = vector.toString().split("\n");
                 for (String val : itr) {
-
+                    System.out.println(val);
+                    for(String s : val.split(",")){
+                        System.out.println(s);
+                    }
                     IntWritable v = new IntWritable(1);
                     context.write(word,v);
                 }
@@ -71,6 +74,7 @@ public class MatrixMultiplication {
             String line = fileReader.readLine();
             while(line!= null){
                 builder.append(line);
+                builder.append("\n");
                 line = fileReader.readLine();
             }
             TokenizerMapper.setVector(builder.toString());
