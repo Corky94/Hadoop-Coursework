@@ -47,11 +47,11 @@ public class MonteCarloPi {
 
 
                 if (x * x + y * y <= 4){
-                    word.set("1");
+                    word.set("0");
 
                 }
                 else{
-                    word.set("0");
+                    word.set("1");
                 }
                 context.write(word,one);
             }
